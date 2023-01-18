@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+:root {
+  --spacing-1: 0.2rem;
+  --spacing-2: 0.4rem;
+  --spacing-3: 0.8rem;
+  --spacing-4: 1.2rem;
+  --spacing-5: 1.6rem;
+  --spacing-6: 2.4rem;
+  --spacing-7: 3.2rem;
+  --spacing-8: 4rem;
+  --spacing-9: 4rem;
+  --spacing-10: 4.8rem;
+  --spacing-11: 6.4rem;
+  --spacing-12: 8rem;
+  --spacing-13: 9.6rem;
+  --spacing-14: 16rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 62.5%;
+  position: relative;
+  background-image: url("./assets/bg-desktop-light.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  display: flex;
+  padding-top: var(--spacing-7);
+  max-width: 30rem;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.header__h1 {
+  font-size: var(--spacing-6);
+  color: #fff;
+  letter-spacing: var(--spacing-2);
+  font-weight: 700;
+}
+
+.header__light_scheme {
+  margin: 0 0 0 auto;
+}
+
+.header__light_scheme img {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #000;
+}
