@@ -1,10 +1,9 @@
 import React from "react";
 import SvgClose from "../svg/SvgClose";
-import TodoItem from "./TodoItem";
 
 const TodoList = ({ setList, list, configList, setConfigList }) => {
-  function clearCompleted(complete) {
-    const newList = list.filter((item) => !complete);
+  function clearCompleted() {
+    const newList = list.filter((item) => !item.complete);
     setList(newList);
   }
 
@@ -28,7 +27,7 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
     <>
       <ul className="todo">
         {list.map((item) => {
-          const { task, key } = item;
+          const { task, key, complete } = item;
           if (configList === "All") {
             return (
               <li key={key} className="todo-list">
@@ -37,6 +36,7 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
                   className="list__button"
                   name="listItem1"
                   onClick={() => changeComplete(key)}
+                  defaultChecked={complete}
                 ></input>
                 <label htmlFor="listItem1" className="list__text">
                   {task}
@@ -70,7 +70,7 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
                   type="checkbox"
                   className="list__button"
                   name="listItem1"
-                  checked="true"
+                  defaultChecked={true}
                   onClick={() => changeComplete(key)}
                 ></input>
                 <label htmlFor="listItem1" className="list__text">
@@ -84,7 +84,13 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           }
         })}
         <li className="todo-info">
-          <p className="info__left">5 items left</p>
+          <p className="info__left">{`${list.reduce((sum, value) => {
+            if (!value.complete) {
+              return sum + 1;
+            } else {
+              return sum;
+            }
+          }, 0)} items left`}</p>
           <div className="info__display">
             <p
               className="display__all info__active"
@@ -105,7 +111,9 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
               Completed
             </p>
           </div>
-          <p className="info__clear">Clear Completed</p>
+          <p className="info__clear" onClick={clearCompleted}>
+            Clear Completed
+          </p>
         </li>
       </ul>
     </>
