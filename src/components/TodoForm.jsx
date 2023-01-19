@@ -1,14 +1,28 @@
 import React from "react";
 
-const TodoForm = () => {
+const TodoForm = ({ setList, setName, name, list }) => {
   function handleSubmit(e) {
     e.preventDefault();
+    if (name !== null && name !== "") {
+      const key = crypto.randomUUID();
+      setList([...list, { key, task: name, complete: false }]);
+    }
+    setName("");
+  }
+  function handleChange(e) {
+    setName(e.target.value);
   }
 
   return (
     <form onSubmit={handleSubmit} className="form">
       <div className="form__wraper">
-        <input className="form__input" name="todoInput" type="text" />
+        <input
+          className="form__input"
+          name="todoInput"
+          type="text"
+          onChange={handleChange}
+          value={name}
+        />
       </div>
     </form>
   );
