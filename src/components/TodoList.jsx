@@ -1,4 +1,5 @@
-import React from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import React, { useRef, useState } from "react";
 import SvgClose from "../svg/SvgClose";
 
 const TodoList = ({ setList, list, configList, setConfigList }) => {
@@ -6,7 +7,6 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
     const newList = list.filter((item) => !item.complete);
     setList(newList);
   }
-
   function deleteTask(key) {
     const newList = list.filter((item) => item.key !== key);
     setList(newList);
@@ -93,19 +93,25 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           }, 0)} items left`}</p>
           <div className="info__display">
             <p
-              className="display__all info__active"
+              className={`display__all ${
+                configList === "All" ? "info__active" : ""
+              }`}
               onClick={() => setConfigList("All")}
             >
               All
             </p>
             <p
-              className="display__active"
+              className={`display__active ${
+                configList === "Active" ? "info__active" : ""
+              }`}
               onClick={() => setConfigList("Active")}
             >
               Active
             </p>
             <p
-              className="display__completed"
+              className={`completed ${
+                configList === "Completed" ? "info__active" : ""
+              }`}
               onClick={() => setConfigList("Completed")}
             >
               Completed

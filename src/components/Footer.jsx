@@ -1,5 +1,7 @@
 import React from "react";
 
-export const Footer = () => {
+const Footer = () => {
   return <p className="footer">Drag and drop to reorder List</p>;
 };
+
+export default Footer;
