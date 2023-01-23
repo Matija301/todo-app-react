@@ -52,7 +52,7 @@ const App = () => {
         backend: TouchBackend,
         options: { enableMouseEvents: true },
         transition: TouchTransition,
-        skipDispatchOnTransition: true,
+        preview: true,
       },
     ],
   };

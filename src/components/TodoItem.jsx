@@ -22,11 +22,12 @@ const TodoItem = ({
     }),
   }));
 
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId, isOver }, drop] = useDrop({
     accept: ItemTypes.TODO,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
+        isOver: !!monitor.isOver(),
       };
     },
     drop(item, monitor) {
@@ -49,7 +50,8 @@ const TodoItem = ({
     <li
       ref={ref}
       style={{
-        opacity: isDragging ? 0.5 : 1,
+        opacity: isDragging ? 0.8 : 1,
+        backgroundColor: isOver ? "#f2f2f2" : "#fff",
       }}
       className="todo-list"
       data-handler-id={handlerId}
