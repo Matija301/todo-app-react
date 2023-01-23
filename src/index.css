@@ -264,8 +264,18 @@ body {
 }
 
 .list__text {
-  font-size: var(--spacing-4);
+  font-size: var(--spacing-3);
   position: relative;
+}
+@media (max-width: 400px) {
+  .list__text {
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+  .form__input {
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
 }
 
 .list__delete {
