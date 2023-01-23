@@ -17,6 +17,7 @@ const TodoForm = ({ setList, setName, name, list }) => {
     <form onSubmit={handleSubmit} className="form">
       <div className="form__wraper">
         <input
+          maxLength={32}
           className="form__input"
           name="todoInput"
           type="text"

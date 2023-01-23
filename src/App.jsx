@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import {
+  MouseTransition,
+  MultiBackend,
+  TouchTransition,
+} from "react-dnd-multi-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import Footer from "./components/Footer";
 import Header from "./components/header";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+HTML5Backend;
 
 const keyStorage = "key-local";
 const lightModeKey = "light-local";
@@ -39,6 +42,21 @@ const App = () => {
   const [configList, setConfigList] = useState("All");
   const [lightMode, setLightMode] = useState(getLightMode);
 
+  const CustomHTML5toTouch = {
+    backends: [
+      {
+        backend: HTML5Backend,
+        transition: MouseTransition,
+      },
+      {
+        backend: TouchBackend,
+        options: { enableMouseEvents: true },
+        transition: TouchTransition,
+        skipDispatchOnTransition: true,
+      },
+    ],
+  };
+
   useEffect(() => {
     localStorage.setItem(keyStorage, JSON.stringify(list));
   }, [list]);
@@ -60,12 +78,14 @@ const App = () => {
         name={name}
         list={list}
       ></TodoForm>
-      <TodoList
-        setList={setList}
-        list={list}
-        configList={configList}
-        setConfigList={setConfigList}
-      ></TodoList>
+      <DndProvider backend={MultiBackend} options={CustomHTML5toTouch}>
+        <TodoList
+          setList={setList}
+          list={list}
+          configList={configList}
+          setConfigList={setConfigList}
+        ></TodoList>
+      </DndProvider>
       <Footer></Footer>
     </>
   );

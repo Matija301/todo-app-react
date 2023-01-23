@@ -1,6 +1,5 @@
-import { useSortable } from "@dnd-kit/sortable";
 import React, { useRef, useState } from "react";
-import SvgClose from "../svg/SvgClose";
+import TodoItemAll from "./TodoItem";
 
 const TodoList = ({ setList, list, configList, setConfigList }) => {
   function clearCompleted() {
@@ -10,6 +9,14 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
   function deleteTask(key) {
     const newList = list.filter((item) => item.key !== key);
     setList(newList);
+  }
+
+  function moveTodo(dragIndex, hoverIndex) {
+    const listNew = list.map((item) => item);
+    const hoverItem = listNew[hoverIndex];
+    listNew[hoverIndex] = listNew[dragIndex];
+    listNew[dragIndex] = hoverItem;
+    setList(listNew);
   }
 
   function changeComplete(key) {
@@ -25,61 +32,37 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
 
   return (
     <>
-      <ul className="todo">
-        {list.map((item) => {
-          const { task, key, complete } = item;
+      <ul className="todo" key={"kljuc"}>
+        {list.map((item, index) => {
           if (configList === "All") {
             return (
-              <li key={key} className="todo-list">
-                <input
-                  type="checkbox"
-                  className="list__button"
-                  name="listItem1"
-                  onClick={() => changeComplete(key)}
-                  defaultChecked={complete}
-                ></input>
-                <label htmlFor="listItem1" className="list__text">
-                  {task}
-                </label>
-                <div className="list__delete" onClick={() => deleteTask(key)}>
-                  <SvgClose />
-                </div>
-              </li>
+              <TodoItemAll
+                index={index}
+                itemTodo={item}
+                deleteTask={deleteTask}
+                changeComplete={changeComplete}
+                moveTodo={moveTodo}
+              ></TodoItemAll>
             );
           } else if (configList === "Active" && item.complete === false) {
             return (
-              <li key={key} className="todo-list">
-                <input
-                  type="checkbox"
-                  className="list__button"
-                  name="listItem1"
-                  onClick={() => changeComplete(key)}
-                ></input>
-                <label htmlFor="listItem1" className="list__text">
-                  {task}
-                </label>
-                <div className="list__delete" onClick={() => deleteTask(key)}>
-                  <SvgClose />
-                </div>
-              </li>
+              <TodoItemAll
+                index={index}
+                itemTodo={item}
+                deleteTask={deleteTask}
+                changeComplete={changeComplete}
+                moveTodo={moveTodo}
+              ></TodoItemAll>
             );
           } else if (configList === "Completed" && item.complete === true) {
             return (
-              <li key={key} className="todo-list">
-                <input
-                  type="checkbox"
-                  className="list__button"
-                  name="listItem1"
-                  defaultChecked={true}
-                  onClick={() => changeComplete(key)}
-                ></input>
-                <label htmlFor="listItem1" className="list__text">
-                  {task}
-                </label>
-                <div className="list__delete" onClick={() => deleteTask(key)}>
-                  <SvgClose />
-                </div>
-              </li>
+              <TodoItemAll
+                index={index}
+                itemTodo={item}
+                deleteTask={deleteTask}
+                changeComplete={changeComplete}
+                moveTodo={moveTodo}
+              ></TodoItemAll>
             );
           }
         })}
