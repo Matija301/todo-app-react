@@ -51,7 +51,7 @@ const TodoItem = ({
       ref={ref}
       style={{
         opacity: isDragging ? 0.8 : 1,
-        backgroundColor: isOver ? "#f2f2f2" : "#fff",
+        backgroundColor: isOver && "#f2f2f2",
       }}
       className="todo-list"
       data-handler-id={handlerId}
