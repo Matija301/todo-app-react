@@ -18,9 +18,10 @@ const TodoItem = ({
       return { key, index };
     },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     }),
   }));
+  const opacity = isDragging ? 0.4 : 1;
 
   const [{ handlerId, isOver }, drop] = useDrop({
     accept: ItemTypes.TODO,
@@ -36,9 +37,6 @@ const TodoItem = ({
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-
-      console.log(dragIndex);
-      console.log(hoverIndex);
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -50,8 +48,8 @@ const TodoItem = ({
     <li
       ref={ref}
       style={{
-        opacity: isDragging ? 0.8 : 1,
-        backgroundColor: isOver && "#f2f2f2",
+        opacity,
+        backgroundColor: isOver && "#f2eaa1",
       }}
       className="todo-list"
       data-handler-id={handlerId}

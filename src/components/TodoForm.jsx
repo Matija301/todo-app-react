@@ -3,7 +3,7 @@ import React from "react";
 const TodoForm = ({ setList, setName, name, list }) => {
   function handleSubmit(e) {
     e.preventDefault();
-    if (name !== null && name !== "") {
+    if (name !== null && name.trim() !== "") {
       const key = crypto.randomUUID();
       setList([...list, { key, task: name, complete: false, isDraged: false }]);
     }
