@@ -60,6 +60,7 @@ const TodoItem = ({
         name="listItem1"
         onClick={() => changeComplete(key)}
         checked={complete}
+        readOnly
       ></input>
       <label htmlFor="listItem1" className="list__text">
         {task}

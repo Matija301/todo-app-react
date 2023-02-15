@@ -32,11 +32,12 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
 
   return (
     <>
-      <ul className="todo" key={"kljuc"}>
+      <ul className="todo">
         {list.map((item, index) => {
           if (configList === "All") {
             return (
               <TodoItemAll
+                key={index}
                 index={index}
                 itemTodo={item}
                 deleteTask={deleteTask}
@@ -47,6 +48,7 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           } else if (configList === "Active" && item.complete === false) {
             return (
               <TodoItemAll
+                key={index}
                 index={index}
                 itemTodo={item}
                 deleteTask={deleteTask}
@@ -57,6 +59,7 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           } else if (configList === "Completed" && item.complete === true) {
             return (
               <TodoItemAll
+                key={index}
                 index={index}
                 itemTodo={item}
                 deleteTask={deleteTask}
