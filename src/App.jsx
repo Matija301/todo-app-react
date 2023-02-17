@@ -20,7 +20,8 @@ function getList() {
   const getData = localStorage.getItem(keyStorage);
   if (getData) {
     const data = JSON.parse(getData);
-    return data;
+    const newData = data.filter((i) => i !== null);
+    return newData;
   } else {
     return [];
   }

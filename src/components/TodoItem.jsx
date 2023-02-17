@@ -3,19 +3,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "../DND-types/types";
 import SvgClose from "../svg/SvgClose";
 
-const TodoItem = ({
-  deleteTask,
-  changeComplete,
-  itemTodo,
-  index,
-  moveTodo,
-}) => {
-  const { task, key, complete } = itemTodo;
+const TodoItem = ({ deleteTask, changeComplete, itemTodo, moveTodo, id }) => {
+  const { task, complete } = itemTodo;
   const ref = useRef(null);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TODO,
     item: () => {
-      return { key, index };
+      return { id };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -35,8 +29,8 @@ const TodoItem = ({
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
-      const hoverIndex = index;
+      const dragIndex = item.id;
+      const hoverIndex = id;
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -58,14 +52,14 @@ const TodoItem = ({
         type="checkbox"
         className="list__button"
         name="listItem1"
-        onClick={() => changeComplete(key)}
+        onClick={() => changeComplete(id)}
         checked={complete}
         readOnly
       ></input>
       <label htmlFor="listItem1" className="list__text">
         {task}
       </label>
-      <div className="list__delete" onClick={() => deleteTask(key)}>
+      <div className="list__delete" onClick={() => deleteTask(id)}>
         <SvgClose />
       </div>
     </li>

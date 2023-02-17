@@ -11,11 +11,16 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
     setList(newList);
   }
 
-  function moveTodo(dragIndex, hoverIndex) {
+  function moveTodo(dragId, hoverId) {
     const listNew = list.map((item) => item);
-    const hoverItem = listNew[hoverIndex];
+    const dragItem = list.find((item) => item.key === dragId);
+    const dragIndex = dragItem.index;
+    const hoverItem = list.find((item) => item.key === hoverId);
+    const hoverIndex = hoverItem.index;
     listNew[hoverIndex] = listNew[dragIndex];
+    listNew[hoverIndex].index = hoverIndex;
     listNew[dragIndex] = hoverItem;
+    listNew[dragIndex].index = dragIndex;
     setList(listNew);
   }
 
@@ -33,12 +38,12 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
   return (
     <>
       <ul className="todo">
-        {list.map((item, index) => {
+        {list.map((item) => {
           if (configList === "All") {
             return (
               <TodoItemAll
-                key={index}
-                index={index}
+                key={item.key}
+                id={item.key}
                 itemTodo={item}
                 deleteTask={deleteTask}
                 changeComplete={changeComplete}
@@ -48,8 +53,8 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           } else if (configList === "Active" && item.complete === false) {
             return (
               <TodoItemAll
-                key={index}
-                index={index}
+                key={item.key}
+                id={item.key}
                 itemTodo={item}
                 deleteTask={deleteTask}
                 changeComplete={changeComplete}
@@ -59,8 +64,8 @@ const TodoList = ({ setList, list, configList, setConfigList }) => {
           } else if (configList === "Completed" && item.complete === true) {
             return (
               <TodoItemAll
-                key={index}
-                index={index}
+                key={item.key}
+                id={item.key}
                 itemTodo={item}
                 deleteTask={deleteTask}
                 changeComplete={changeComplete}

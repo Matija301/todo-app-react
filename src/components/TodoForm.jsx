@@ -5,7 +5,10 @@ const TodoForm = ({ setList, setName, name, list }) => {
     e.preventDefault();
     if (name !== null && name.trim() !== "") {
       const key = crypto.randomUUID();
-      setList([...list, { key, task: name, complete: false, isDraged: false }]);
+      setList([
+        ...list,
+        { key, task: name, complete: false, index: list.length },
+      ]);
     }
     setName("");
   }
